@@ -14,11 +14,11 @@ import android.widget.TextView;
 
 public class ResultListAdapter extends BaseAdapter {
 
-	private ArrayList<SearchResultItem> listData;
+	private SearchResultList listData;
 	private LayoutInflater layoutInflater;
 	private Context context;
 
-	public ResultListAdapter(Context ctx, ArrayList<SearchResultItem> data) {
+	public ResultListAdapter(Context ctx, SearchResultList data) {
 		this.context = ctx;
 		this.listData = data;
 	}

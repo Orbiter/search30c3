@@ -1,12 +1,9 @@
 package de.ccc.search30c3;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -22,7 +19,7 @@ import android.widget.TextView.OnEditorActionListener;
 public class MainActivity extends Activity {
 	
 	protected MainActivity mainActivity;
-	ArrayList<SearchResultItem> results = null;
+	SearchResultList results = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +49,9 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		if (null != results) {
-			displayResults(results);
+		if ((null != savedInstanceState )
+				&& (savedInstanceState.containsKey("data"))) {
+			displayResults((SearchResultList) savedInstanceState.get("data"));
 		}
 	}
 
@@ -77,10 +75,15 @@ public class MainActivity extends Activity {
 //		}
 	}
 	
-	public void displayResults(ArrayList<SearchResultItem> result) {
+	@Override
+	public void onSaveInstanceState(Bundle bundle) {
+		bundle.putSerializable("data", results);
+	}
+	
+	public void displayResults(SearchResultList results2) {
 		ListView resultListView = (ListView) findViewById(R.id.resultListView);
 
-		this.results = result;
+		this.results = results2;
 		
 		ResultListAdapter adapter = new ResultListAdapter(
 				getApplicationContext(), results);

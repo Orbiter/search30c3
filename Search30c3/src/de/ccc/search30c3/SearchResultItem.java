@@ -1,12 +1,19 @@
 package de.ccc.search30c3;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SearchResultItem {
+public class SearchResultItem implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1221513964247839026L;
+	
+	
 	/** Json result 
 	 * 
 	 * 

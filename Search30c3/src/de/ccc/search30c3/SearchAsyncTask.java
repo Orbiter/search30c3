@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -20,7 +19,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 public class SearchAsyncTask extends
-		AsyncTask<String, Integer, ArrayList<SearchResultItem>> {
+		AsyncTask<String, Integer, SearchResultList> {
 
 	private static String SERVER_URL = "http://30c3-conference.yacy.net/";
 
@@ -32,7 +31,7 @@ public class SearchAsyncTask extends
 	}
 
 	@Override
-	protected ArrayList<SearchResultItem> doInBackground(String... search) {
+	protected SearchResultList doInBackground(String... search) {
 		String resultString = executeSearch(search[0]);
 		return parseResultList(resultString);
 	}
@@ -41,7 +40,7 @@ public class SearchAsyncTask extends
 
 	}
 
-	protected void onPostExecute(ArrayList<SearchResultItem> result) {
+	protected void onPostExecute(SearchResultList result) {
 		Log.d("Async Task","onPostExecute");
 		if (MainActivity.class == caller.getClass()) {
 			((MainActivity) caller).displayResults(result);
@@ -49,8 +48,8 @@ public class SearchAsyncTask extends
 
 	}
 
-	private ArrayList<SearchResultItem> parseResultList(String resultString) {
-		ArrayList<SearchResultItem> results = new ArrayList<SearchResultItem>();
+	private SearchResultList parseResultList(String resultString) {
+		SearchResultList results = new SearchResultList();
 
 		if (null == resultString)
 			return results;

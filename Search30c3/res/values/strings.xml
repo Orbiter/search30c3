@@ -7,5 +7,7 @@
     <string name="search_hint">Enter search term</string>
     <string name="search_description">Search field</string>
     <string name="dummy">Replaced by app</string>
+    <string name="button_next">next &gt;</string>
+    <string name="button_last">&lt; last</string>
 
 </resources>
