@@ -6,11 +6,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebIconDatabase;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -21,7 +22,7 @@ import android.widget.TextView.OnEditorActionListener;
 public class MainActivity extends Activity {
 	
 	protected MainActivity mainActivity;
-	protected ArrayList<SearchResultItem> results = null;
+	ArrayList<SearchResultItem> results = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +30,14 @@ public class MainActivity extends Activity {
 		mainActivity = this;
 		setContentView(R.layout.activity_main);
 		EditText searchText = (EditText) findViewById(R.id.searchText);
-
+		
 		// On search listener
 		searchText.setOnEditorActionListener(new OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
 				new SearchAsyncTask(mainActivity).execute(v
-						.getText().toString().replace("\n", ""));
+						.getText().toString());
 				v.setEnabled(false);
 				return false;
 			}
@@ -46,10 +47,14 @@ public class MainActivity extends Activity {
 		searchText.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				EditText searchText = (EditText) v;
-				searchText.setText("");
+//				EditText searchText = (EditText) v;
+//				searchText.setText("");
 			}
 		});
+		
+		if (null != results) {
+			displayResults(results);
+		}
 	}
 
 	@Override
@@ -58,11 +63,24 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
-	public void displayResults(final ArrayList<SearchResultItem> results) {
+	
+	@Override
+	public void onPause() {
+		Log.w("Test","onPause");
+		super.onPause();
+	}
+	
+	public void onResume() {
+		super.onResume();
+//		if (null != results) {
+//			displayResults(results);
+//		}
+	}
+	
+	public void displayResults(ArrayList<SearchResultItem> result) {
 		ListView resultListView = (ListView) findViewById(R.id.resultListView);
 
-		this.results = results;
+		this.results = result;
 		
 		ResultListAdapter adapter = new ResultListAdapter(
 				getApplicationContext(), results);
@@ -77,7 +95,6 @@ public class MainActivity extends Activity {
 				String link = results.get(position).link;
 				Intent webViewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
 				startActivity(webViewIntent);
-				
 			}
 		});
 		

@@ -3,6 +3,8 @@ package de.ccc.search30c3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -13,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -100,7 +101,13 @@ public class SearchAsyncTask extends
 //				.newInstance("AndroidHttpClient");
 
 		HttpClient httpClient = new DefaultHttpClient();
-		String request = SERVER_URL + "yacysearch.json?query=" + search;
+		String request = null;
+		try {
+			request = SERVER_URL + "yacysearch.json?query=" + URLEncoder.encode(search,"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		HttpGet getRequest = new HttpGet(request);
 
 		HttpResponse response = null;
