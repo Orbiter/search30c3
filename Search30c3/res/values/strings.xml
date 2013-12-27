@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">30c3 Conference Search</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="search_hint">Enter search term</string>
+    <string name="search_description">Search field</string>
+    <string name="dummy">Replaced by app</string>
+
+</resources>

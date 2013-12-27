@@ -1,0 +1,14 @@
+#Ignore compiled files
+*.apk
+*.ap_
+*.dex
+*.class
+*.orig
+
+
+#Ignore folders
+bin/
+build/
+gen/
+out/
+.gradle/
