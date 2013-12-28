@@ -19,7 +19,8 @@ import android.widget.TextView.OnEditorActionListener;
 public class MainActivity extends Activity {
 
 	protected MainActivity mainActivity;
-	SearchResultList results = null;
+	private SearchResultList results = null;
+	private String search;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,8 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
-				new SearchAsyncTask(mainActivity).execute(v.getText()
-						.toString());
+				search = v.getText().toString();
+				new SearchAsyncTask(mainActivity).execute(search);
 				v.setEnabled(false);
 				return false;
 			}
@@ -51,7 +52,12 @@ public class MainActivity extends Activity {
 
 		if ((null != savedInstanceState)
 				&& (savedInstanceState.containsKey("data"))) {
-			displayResults((SearchResultList) savedInstanceState.get("data"));
+			results = (SearchResultList) savedInstanceState.get("data");
+			if (null != results) displayResults(results);
+			search = savedInstanceState.getString("search");
+			if (null != search) {
+				((EditText) findViewById(R.id.searchText)).setText(search);
+			}
 		}
 	}
 
@@ -78,6 +84,7 @@ public class MainActivity extends Activity {
 	@Override
 	public void onSaveInstanceState(Bundle bundle) {
 		bundle.putSerializable("data", results);
+		bundle.putString("search", search);
 	}
 
 	public void displayResults(SearchResultList results2) {
