@@ -63,6 +63,7 @@ public class SearchAsyncTask extends
 				results.add(new SearchResultItem((JSONObject) resultList
 						.get(counter)));
 			}
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

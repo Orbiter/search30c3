@@ -1,43 +1,58 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FullLayout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="top"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    android:layout_height="fill_parent" >
 
-    <EditText
-        android:id="@+id/searchText"
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="@string/search_hint"
-        android:inputType="text" >
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fairydust_background" />
 
-        <requestFocus />
-    </EditText>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="top"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity" >
 
-    <ListView
-        android:id="@+id/resultListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/searchText"
-        android:layout_centerHorizontal="true" >
-    </ListView>
-    
-    <include
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/resultListView"
-        android:layout_centerHorizontal="true"
-        layout="@layout/navigation_buttons"
-        android:gravity="bottom" 
-        android:layout_alignParentBottom="true"/>
-        
-</RelativeLayout>
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/search_hint"
+            android:inputType="text" >
+
+            <requestFocus />
+        </EditText>
+
+        <ListView
+            android:id="@+id/resultListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchText"
+            android:layout_centerHorizontal="true" >
+        </ListView>
+
+        <!--
+        <include
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resultListView"
+            android:layout_centerHorizontal="true"
+            layout="@layout/navigation_buttons"
+            android:gravity="bottom" 
+            android:layout_alignParentBottom="true"/>
+        -->
+    </RelativeLayout>
+
+</FrameLayout>
