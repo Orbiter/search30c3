@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 public class MainActivity extends Activity {
-	
+
 	protected MainActivity mainActivity;
 	SearchResultList results = null;
 
@@ -27,14 +27,14 @@ public class MainActivity extends Activity {
 		mainActivity = this;
 		setContentView(R.layout.activity_main);
 		EditText searchText = (EditText) findViewById(R.id.searchText);
-		
+
 		// On search listener
 		searchText.setOnEditorActionListener(new OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
-				new SearchAsyncTask(mainActivity).execute(v
-						.getText().toString());
+				new SearchAsyncTask(mainActivity).execute(v.getText()
+						.toString());
 				v.setEnabled(false);
 				return false;
 			}
@@ -44,12 +44,12 @@ public class MainActivity extends Activity {
 		searchText.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				EditText searchText = (EditText) v;
-//				searchText.setText("");
+				// EditText searchText = (EditText) v;
+				// searchText.setText("");
 			}
 		});
-		
-		if ((null != savedInstanceState )
+
+		if ((null != savedInstanceState)
 				&& (savedInstanceState.containsKey("data"))) {
 			displayResults((SearchResultList) savedInstanceState.get("data"));
 		}
@@ -61,46 +61,48 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	@Override
 	public void onPause() {
-		Log.w("Test","onPause");
+		Log.w("Test", "onPause");
 		super.onPause();
 	}
-	
+
 	public void onResume() {
 		super.onResume();
-//		if (null != results) {
-//			displayResults(results);
-//		}
+		// if (null != results) {
+		// displayResults(results);
+		// }
 	}
-	
+
 	@Override
 	public void onSaveInstanceState(Bundle bundle) {
 		bundle.putSerializable("data", results);
 	}
-	
+
 	public void displayResults(SearchResultList results2) {
-		ListView resultListView = (ListView) findViewById(R.id.resultListView);
 
-		this.results = results2;
-		
-		ResultListAdapter adapter = new ResultListAdapter(
-				getApplicationContext(), results);
+		if (null != results2) {
+			ListView resultListView = (ListView) findViewById(R.id.resultListView);
 
-		resultListView.setAdapter(adapter);
-		
-		resultListView.setOnItemClickListener(new OnItemClickListener() {
+			this.results = results2;
+			ResultListAdapter adapter = new ResultListAdapter(
+					getApplicationContext(), results);
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long id) {
-				String link = results.get(position).link;
-				Intent webViewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-				startActivity(webViewIntent);
-			}
-		});
-		
+			resultListView.setAdapter(adapter);
+			resultListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int position, long id) {
+					String link = results.get(position).link;
+					Intent webViewIntent = new Intent(Intent.ACTION_VIEW, Uri
+							.parse(link));
+					startActivity(webViewIntent);
+				}
+			});
+		}
+
 		EditText editText = (EditText) findViewById(R.id.searchText);
 		editText.setEnabled(true);
 	}

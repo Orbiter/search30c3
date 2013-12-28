@@ -4,6 +4,7 @@
 *.dex
 *.class
 *.orig
+*.keystore
 
 
 #Ignore folders
