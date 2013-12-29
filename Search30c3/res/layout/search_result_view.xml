@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/dummy" />
+        android:text="@string/dummy"
+        android:textColor="@color/result_list_counter" />
 
 </RelativeLayout>

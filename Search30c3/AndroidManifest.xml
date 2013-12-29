@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -13,7 +13,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo_yacy30c3"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Holo" >
         <activity
             android:name="de.ccc.search30c3.MainActivity"
             android:label="@string/app_name" >

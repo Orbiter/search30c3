@@ -9,5 +9,7 @@
     <string name="dummy">Replaced by app</string>
     <string name="button_next">next &gt;</string>
     <string name="button_last">&lt; last</string>
+    <string name="pref_server_url">Server URL</string>
+    <string name="pref_server_url_dialog">Insert YaCy URL</string>
 
 </resources>

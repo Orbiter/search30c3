@@ -4,6 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    
+    
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
@@ -25,9 +27,9 @@
             android:id="@+id/navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            layout="@layout/navigation_buttons"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignLeft="@+id/resultListView"
+            android:layout_alignParentBottom="true"
+            layout="@layout/navigation_buttons" />
         
         <EditText
             android:id="@+id/searchText"
@@ -37,6 +39,7 @@
             android:layout_centerHorizontal="true"
             android:ems="10"
             android:hint="@string/search_hint"
+            android:textColor="@color/result_list_title"
             android:inputType="text" >
 
             <requestFocus />
@@ -50,6 +53,7 @@
             android:layout_above="@id/navigation"
             android:layout_centerHorizontal="true" >
         </ListView>
+
 
     </RelativeLayout>
 
