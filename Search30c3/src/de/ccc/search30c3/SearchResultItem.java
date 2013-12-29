@@ -39,6 +39,7 @@ public class SearchResultItem implements Serializable {
 	public String description;
 	public Date pubDate;
 	public int size;
+	public int index;
 	public String sizeReadable;
 	public String guid;
 	public String faviconCode;

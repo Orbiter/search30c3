@@ -20,7 +20,15 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context=".MainActivity" >
-
+        
+        <include
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            layout="@layout/navigation_buttons"
+            android:layout_alignParentBottom="true"/>
+        
         <EditText
             android:id="@+id/searchText"
             android:layout_width="match_parent"
@@ -39,20 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/searchText"
+            android:layout_above="@id/navigation"
             android:layout_centerHorizontal="true" >
         </ListView>
 
-        <!--
-        <include
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/resultListView"
-            android:layout_centerHorizontal="true"
-            layout="@layout/navigation_buttons"
-            android:gravity="bottom" 
-            android:layout_alignParentBottom="true"/>
-        -->
     </RelativeLayout>
 
 </FrameLayout>

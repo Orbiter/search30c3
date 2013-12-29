@@ -22,6 +22,7 @@ public class SearchAsyncTask extends
 		AsyncTask<String, Integer, SearchResultList> {
 
 	private static String SERVER_URL = "http://30c3-conference.yacy.net/";
+	private static int START_INDEX = 0;
 
 	private Context caller;
 
@@ -32,7 +33,13 @@ public class SearchAsyncTask extends
 
 	@Override
 	protected SearchResultList doInBackground(String... search) {
-		String resultString = executeSearch(search[0]);
+		int beginItem = START_INDEX;
+		try {
+			beginItem = Integer.parseInt(search[1]);
+		} catch (IndexOutOfBoundsException e) {
+			// nothing to do
+		}
+		String resultString = executeSearch(search[0], beginItem);
 		return parseResultList(resultString);
 	}
 
@@ -41,7 +48,7 @@ public class SearchAsyncTask extends
 	}
 
 	protected void onPostExecute(SearchResultList result) {
-		Log.d("Async Task","onPostExecute");
+		Log.d("Async Task", "onPostExecute");
 		if (MainActivity.class == caller.getClass()) {
 			((MainActivity) caller).displayResults(result);
 		}
@@ -57,13 +64,21 @@ public class SearchAsyncTask extends
 			JSONObject fullJson = new JSONObject(resultString);
 			JSONArray channels = fullJson.getJSONArray("channels");
 			JSONObject channel = channels.getJSONObject(0);
-			JSONArray resultList = channel.getJSONArray("items");
+			
+			//ERROR IN REPLY!
+			results.maxItems = channel.getInt("totalResults");
+			results.pageSize = channel.getInt("itemsPerPage");
+			results.firstItemNumber = channel.getInt("startIndex");
 
+			
+			//parse results
+			JSONArray resultList = channel.getJSONArray("items");
 			for (int counter = 0; counter < resultList.length(); counter++) {
 				results.add(new SearchResultItem((JSONObject) resultList
 						.get(counter)));
+				((SearchResultItem) results.get(counter)).index = results.firstItemNumber + counter;
 			}
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,7 +87,8 @@ public class SearchAsyncTask extends
 	}
 
 	private String parseHttpResponse(HttpResponse response) {
-		if (null == response) return null;
+		if (null == response)
+			return null;
 
 		String resultString = null;
 		StringBuilder sb = new StringBuilder();
@@ -96,14 +112,15 @@ public class SearchAsyncTask extends
 		return resultString;
 	}
 
-	private String executeSearch(String search) {
-//		AndroidHttpClient httpClient = AndroidHttpClient
-//				.newInstance("AndroidHttpClient");
+	private String executeSearch(String search, int beginResult) {
+		// AndroidHttpClient httpClient = AndroidHttpClient
+		// .newInstance("AndroidHttpClient");
 
 		HttpClient httpClient = new DefaultHttpClient();
 		String request = null;
 		try {
-			request = SERVER_URL + "yacysearch.json?query=" + URLEncoder.encode(search,"UTF-8");
+			request = SERVER_URL + "yacysearch.json?query="
+					+ URLEncoder.encode(search, "UTF-8") + "&startRecord=" + beginResult;
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -118,11 +135,10 @@ public class SearchAsyncTask extends
 			e.printStackTrace();
 		}
 
-//		if (null != httpClient) {
-//			httpClient.;
-//		}
+		// if (null != httpClient) {
+		// httpClient.;
+		// }
 
-		
 		String result = parseHttpResponse(response);
 
 		return result;

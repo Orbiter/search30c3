@@ -56,11 +56,15 @@ public class ResultListAdapter extends BaseAdapter {
 				.findViewById(R.id.textView_title);
 		TextView descriptionView = (TextView) convertView
 				.findViewById(R.id.textView_description);
+		TextView indexView = (TextView) convertView
+				.findViewById(R.id.textView_index);
 
 		// Fill views
 		titleView.setText(listData.get(position).title);
-		Spanned formattedDescr = Html.fromHtml(listData.get(position).description);
+		Spanned formattedDescr = Html
+				.fromHtml(listData.get(position).description);
 		descriptionView.setText(formattedDescr);
+		indexView.setText((listData.get(position).index + 1) + "/" + listData.maxItems);
 
 		// Return view
 		return convertView;

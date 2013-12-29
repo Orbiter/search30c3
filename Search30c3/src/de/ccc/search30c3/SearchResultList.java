@@ -9,11 +9,16 @@ public class SearchResultList implements Serializable {
 	 */
 	private static final long serialVersionUID = 5003009482472385159L;
 	private ArrayList<SearchResultItem> data;
-	private String nextPage;
-	private String lastPage;
+	public int firstItemNumber;
+	public int maxItems;
+	public int pageSize;
+
 	
 	public SearchResultList() {
 		data = new ArrayList<SearchResultItem>();
+		maxItems = 0;
+		pageSize = 0;
+		firstItemNumber = 0;
 	}
 	
 	public SearchResultItem get(int position) {
